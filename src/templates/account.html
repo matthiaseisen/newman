@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block more_css %}
+<link href="{{ static_url }}css/prettify.css" rel="stylesheet" />
+{% endblock %}
+
+{% block modals %}
+
+<!-- edit-key-modal -->
+<div class="modal hide" id="edit-key-modal">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3>Edit API Key</h3>
+    </div>
+    <div class="modal-body">
+        <form id="folder-form" action="/api-key/" class="form" method="post">
+            <label for="recipient">Recipient: </label>
+            <input type="text" id="edit-key-form-input-email" value="" name="recipient" />
+            <label for="label">Label: </label>
+            <input type="text" id="edit-key-form-input-label" name="label" />
+            <input type="hidden" id="edit-key-form-input-key" value="" name="api-key" />
+    </div>
+    <div class="modal-footer">
+        <input type="submit" href="#" class="btn btn-custom" value="Save">
+        <button href="#" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </form>
+    </div>
+</div> <!-- /edit-key-modal -->
+
+<!-- new-key-modal -->
+<div class="modal hide" id="new-key-modal">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal">×</button>
+        <h3>New API Key</h3>
+    </div>
+    {% if number_of_api_keys < api_key_quota %}
+    <div class="modal-body">
+        <form id="folder-form" action="/api-key/" class="form" method="post">
+            <label for="recipient">Recipient: </label>
+            <input type="text" placeholder="mail@example.com" name="recipient" />
+            <label for="label">Label: </label>
+            <input type="text" name="label" />
+    </div>
+    <div class="modal-footer">
+        <input type="submit" href="#" class="btn btn-custom" value="Save">
+        <button href="#" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </form>
+    </div>
+    {% else %}
+    <div class="modal-body">
+        Sorry, you are already using all of your {{ number_of_api_keys }} API keys. 
+    </div>
+    <div class="modal-footer">
+        <button href="#" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    </div>
+    {% endif %}
+</div> <!-- /new-key-modal -->
+
+{% endblock %}
+
+{% block content %}
+<p>
+    <br />
+    <a name="apikey"></a>
+    <legend>API Keys</legend>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>API Key</th>
+                <th>Label</th>
+                <th>Recipient</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="4"><a href="#new-key-modal" data-toggle="modal"><i class="icon-plus-sign"></i> New</a></td>
+            </tr>
+            {% for api_key in api_keys %}
+            <tr>
+                <td>{{ api_key.key }}</td>
+                <td class="light-grey">{{ api_key.label }}</td>
+                <td>{{ api_key.email }}</td>
+                <td><a href="#" onclick="launchEditKeyModal('{{ api_key.key }}','{{ api_key.label }}','{{ api_key.email }}');"><i class="icon-pencil"></i></a></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4" style="text-align:center;"><small>Using {{ number_of_api_keys }} of {{ api_key_quota }} API keys.</small></td>
+            </tr>
+        </tbody>
+    </table>
+    <form class="form" method="post" action="/account/">
+        
+          
+    </form>   
+</p>
+<p>
+    <br />
+    <legend>Sample Code</legend>
+    <pre class="prettyprint">
+        
+        &lt;&#33;&#45;&#45; This is some boilerplate code to get you started.  &#45;&#45;&gt;
+        
+        &lt;form method="post" action="http://newmanapi.com/submit/" &gt;
+            
+            &lt;&#33;&#45;&#45; These are important! &#45;&#45;&gt;
+            &lt;input type="hidden" name="newman_api_key" value="{{ key }}" &#47;&gt;
+            &lt;input type="hidden" name="newman_fields" value="field1,field2,field3" &#47;&gt;
+            
+            &lt;&#33;&#45;&#45; These are optional. &#45;&#45;&gt;
+            &lt;input type="hidden" name="newman_required" value="field1,field3" &#47;&gt;
+            &lt;input type="hidden" name="newman_thanks_url" value="http://www.example.com/thanks/" &#47;&gt;
+            &lt;input type="hidden" name="newman_oops_url" value="http://www.example.com/oops/" &#47;&gt;
+            &lt;input type="hidden" name="newman_error_url" value="http://www.example.com/error/" &#47;&gt;
+
+            &lt;&#33;&#45;&#45; These are the actual input fields. &#45;&#45;&gt;
+            Some Field:&lt;br /&gt;
+            &lt;input type="text" name="field1" &#47;&gt;&lt;br /&gt;
+            Another Field:&lt;br /&gt;
+            &lt;input type="text" name="field2" &#47;&gt;&lt;br /&gt;
+            A third Field:&lt;br /&gt; 
+            &lt;textarea name="field3" rows="10" cols="35" &gt;&lt;/textarea&gt;&lt;br /&gt;
+
+            &lt;input type="submit" value="submit" &#47;&gt;
+
+        &lt;&#47;form&gt;
+    </pre>
+</p>
+
+{% endblock %}
+
+{% block more_scripts %}
+<script src="{{ static_url }}js/prettify/prettify.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    function launchEditKeyModal(key, label, email) {
+        $('#edit-key-form-input-key').val(key);
+        $('#edit-key-form-input-label').val(label);
+        $('#edit-key-form-input-email').val(email);
+        $('#edit-key-modal').modal('show');
+    }
+</script>
+{% endblock %}

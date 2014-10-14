@@ -1,0 +1,9 @@
+{% extends "redirect.html" %}
+
+{% block content %}
+<h2>Sorry!</h2>
+<br />
+<p style="color:#900;">This form isn't working correctly. Please try again later.</p>
+<br /><br />
+<p><small>You will be redirected to <a href="{{url|safe}}">{{url}}</a> shortly. Click on the link to speed things up.</small></p>
+{% endblock %}

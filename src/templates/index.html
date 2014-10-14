@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block more_css %}
+<link href="{{ static_url }}css/zocial.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ static_url }}css/auth-buttons.css">
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin:60px 0 150px 0;">
+    <h4>Get Started for Free:</h4> 
+    <a class="zocial googleplus" style="font-size: 16px" href="/account/">Sign in with Google</a>
+    <br />
+    <br /> or <a href="/docs/">Learn more</a>
+</div>
+{% endblock %}

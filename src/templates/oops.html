@@ -1,0 +1,9 @@
+{% extends "redirect.html" %}
+
+{% block content %}
+<h2>Oops.</h2>
+<br />
+<p style="color:#900;">Looks like you missed some required fields.</p>
+<br /><br />
+<p><small>You will be redirected to <a href="{{url|safe}}">{{url}}</a> shortly. Click on the link to speed things up.</small></p>
+{% endblock %}

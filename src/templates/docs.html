@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block more_css %}
+<link href="{{ static_url }}css/prettify.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#gettingstarted">Getting Started</a></li>
+    <li>
+        <a href="#reference">Reference</a>
+        <ul>
+            <li><a href="#fromscratch">Starting from Scratch</a></li>
+            <li><a href="#apikey">Setting your API Key</a></li>
+            <li><a href="#fields">Defining the Fields</a></li>
+            <li><a href="#required">Making Fields Mandatory</a></li>
+            <li><a href="#redirects">Configuring Redirects</a></li>
+        </ul>
+    </li>
+</ul>
+<a name="about"></a><h3>About</h3>
+<p>
+Newman API is a quick and easy way to add form mailing functionality to your (static) website.<br />
+The design and complexity of your forms is entirely up to you. You code it, Newman sends it.<br />
+JavaScript is not required.<br />
+</p>
+<br />
+<a name="gettingstarted"></a><h3>Getting Started</h3>
+<pre class="prettyprint">   
+    &lt;&#33;&#45;&#45; This is some boilerplate code to get you started.  &#45;&#45;&gt;
+    
+    &lt;form method="post" action="http://newmanapi.com/submit/" &gt;
+        
+        &lt;&#33;&#45;&#45; These are important! &#45;&#45;&gt;
+        &lt;input type="hidden" name="newman_api_key" value="YOUR API KEY" &#47;&gt;
+        &lt;input type="hidden" name="newman_fields" value="field1,field2,field3" &#47;&gt;
+        
+        &lt;&#33;&#45;&#45; These are optional. &#45;&#45;&gt;
+        &lt;input type="hidden" name="newman_required" value="field1,field3" &#47;&gt;
+        &lt;input type="hidden" name="newman_thanks_url" value="http://www.example.com/thanks/" &#47;&gt;
+        &lt;input type="hidden" name="newman_oops_url" value="http://www.example.com/oops/" &#47;&gt;
+        &lt;input type="hidden" name="newman_error_url" value="http://www.example.com/error/" &#47;&gt;
+
+        &lt;&#33;&#45;&#45; These are the actual input fields. &#45;&#45;&gt;
+        Some Field:&lt;br /&gt;
+        &lt;input type="text" name="field1" &#47;&gt;&lt;br /&gt;
+        Another Field:&lt;br /&gt;
+        &lt;input type="text" name="field2" &#47;&gt;&lt;br /&gt;
+        A third Field:&lt;br /&gt; 
+        &lt;textarea name="field3" rows="10" cols="35" &gt;&lt;/textarea&gt;&lt;br /&gt;
+
+        &lt;input type="submit" value="submit" &#47;&gt;
+
+    &lt;&#47;form&gt;
+    &nbsp;
+</pre>
+<br />
+<a name="reference"></a><h3>Reference</h3>
+<a name="fromscratch"></a><h4>Starting from Scratch</h4>
+<pre class="prettyprint">   
+    &lt;form method="post" action="http://submit.newmanapi.com/" &gt;
+        YOUR CODE HERE
+    &lt;&#47;form&gt;
+    &nbsp;
+</pre>
+<br />
+<a name="apikey"></a><h4>Setting your API Key</h4>
+<span class="label label-important">required</span><br />
+<br />
+Get your API Key from the <a href="/account/#apikey">Account Dashboard</a>.<br />
+<br />
+<pre class="prettyprint">   
+    &lt;input type="hidden" name="newman_api_key" value="YOUR API KEY" &#47;&gt;
+    &nbsp;
+</pre>
+<br />
+<a name="fields"></a><h4>Defining your Fields</h4>
+<span class="label label-important">required</span><br />
+<br />
+Newman expects a comma-separated list of your input element's name attributes.<br />
+<pre class="prettyprint">  
+    &lt;input type="hidden" name="newman_fields" value="field1,anotherfield,a-third-field" &#47;&gt;
+    &nbsp;
+</pre>
+<br />
+<a name="required"></a><h4>Making Fields Mandatory</h4>
+<span class="label">optional</span><br />
+<br />
+<pre class="prettyprint">   
+    &lt;input type="hidden" name="newman_required" value="field1,field3" &#47;&gt;
+    &nbsp;
+</pre>
+<br />
+<a name="redirects"></a><h4>Configuring Redirects</h4>
+<span class="label">optional</span><br />
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>URL</th>
+            <th>Triggered if</th>
+            <th>Default</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>newman_thanks_url</td>
+            <td>The user has successfully submitted the form</td>
+            <td>http://www.newmanapi.com/thanks/</td>
+        </tr>
+        <tr>
+            <td>newman_oops_url</td>
+            <td>The user has ignored a mandatory field</td>
+            <td>http://www.newmanapi.com/oops/</td>
+        </tr>
+        <tr>
+            <td>newman_sorry_url</td>
+            <td>The form isn't set up correctly or you've run out of credits</td>
+            <td>http://www.newmanapi.com/sorry/</td>
+        </tr>
+    </tbody>
+</table>
+<pre class="prettyprint">    
+    &lt;input type="hidden" name="newman_thanks_url" value="http://www.example.com/thanks/" &#47;&gt;
+    &lt;input type="hidden" name="newman_oops_url" value="http://www.example.com/oops/" &#47;&gt;
+    &lt;input type="hidden" name="newman_error_url" value="http://www.example.com/error/" &#47;&gt;
+    &nbsp;
+</pre>
+{% endblock %}
+
+{% block more_scripts %}
+<script src="{{ static_url }}js/prettify/prettify.js" type="text/javascript"></script>
+{% endblock %}

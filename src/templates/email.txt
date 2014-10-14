@@ -1,0 +1,7 @@
+{{ now }} via {{ referer }}
+{% for field, value in payload.iteritems() %}
+
+{{ field|upper }}:
+{{ "=" * field|list|length }}
+{{ value }}
+{% endfor %}
