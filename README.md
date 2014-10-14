@@ -1,6 +1,6 @@
 # Newman
 
-Form mailing for static websites
+Form mailing for static websites (http://newmanapi.com)
 
 ## Prerequisites
 
