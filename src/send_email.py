@@ -18,7 +18,11 @@ class SendEmail(webapp2.RequestHandler):
             'subject': self.request.get('subject'),
             'text': self.request.get('body'),
         }
-        payload = urllib.urlencode(fields)
+        payload = urllib.urlencode(
+            {
+                k: unicode(v).encode('utf-8') for k, v in fields.iteritems()
+            }
+        )
         result = urlfetch.fetch(
             url=config.mailgun_api_url,
             payload=payload,
